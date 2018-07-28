@@ -1,8 +1,8 @@
 #!/bin/bash
 
 git clone https://$GITHUB_USR:$GITHUB_PWD@github.com/calebfroese/today.github.io.git
-
 cd today.github.io/
+npm install
 
 # Update the day
 today=$(date +"%A")
