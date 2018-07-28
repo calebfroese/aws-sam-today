@@ -16,5 +16,10 @@ curl -s https://www.poemist.com/api/v1/randompoems >> src/assets/poem.json
 # Commit changes
 git add src/app/app.component.ts
 git add src/assets/poem.json
+
+# Build docs/
+npm run deploy
+git add docs/
+
 git commit -m "Update for $today"
 git push
