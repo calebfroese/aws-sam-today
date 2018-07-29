@@ -8,6 +8,10 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ec2"
 )
 
 var (
@@ -40,12 +44,41 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		return events.APIGatewayProxyResponse{}, ErrNoIP
 	}
 
+	res := start()
+
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf("Hello, %v", string(ip)),
+		Body:       res,
 		StatusCode: 200,
 	}, nil
 }
 
 func main() {
 	lambda.Start(handler)
+}
+
+func start() string {
+	fmt.Println("Starting instances...")
+	svc := ec2.New(session.New())
+	input := &ec2.StartInstancesInput{
+		InstanceIds: []*string{
+			aws.String("i-0052ebee6e7814e91"),
+		},
+	}
+
+	result, err := svc.StartInstances(input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			switch aerr.Code() {
+			default:
+				fmt.Println(aerr.Error())
+			}
+		} else {
+			// Print the error, cast err to awserr.Error to get the Code and
+			// Message from an error.
+			fmt.Println(err.Error())
+		}
+		return "Failure"
+	}
+
+	return result.String()
 }
