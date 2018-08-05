@@ -12,8 +12,8 @@ sed -i -e "s/  day = .*/  day = '$today';/g" src/app/app.component.ts
 rm src/assets/poem.json
 curl -s https://www.poemist.com/api/v1/randompoems >> src/assets/poem.json
 
-# git add src/app/app.component.ts
-# git add src/assets/poem.json
+git add src/app/app.component.ts
+git add src/assets/poem.json
 
 npm run deploy
 git add docs/
