@@ -61,7 +61,7 @@ func start() string {
 	svc := ec2.New(session.New())
 	input := &ec2.StartInstancesInput{
 		InstanceIds: []*string{
-			aws.String("i-0052ebee6e7814e91"),
+			aws.String("i-06042ffed331be611"),
 		},
 	}
 
