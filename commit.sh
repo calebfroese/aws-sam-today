@@ -19,7 +19,7 @@ git add src/assets/poem.json
 
 # Build docs/
 npm run deploy
-git add docs/
+git add .
 
 git commit -m "Update for $today"
 git push
