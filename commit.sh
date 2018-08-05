@@ -9,17 +9,14 @@ today=$(date +"%A")
 echo $today
 sed -i -e "s/  day = .*/  day = '$today';/g" src/app/app.component.ts
 
-# Add the new poem
 rm src/assets/poem.json
 curl -s https://www.poemist.com/api/v1/randompoems >> src/assets/poem.json
 
-# Commit changes
-git add src/app/app.component.ts
-git add src/assets/poem.json
+# git add src/app/app.component.ts
+# git add src/assets/poem.json
 
-# Build docs/
 npm run deploy
-git add .
+git add docs/
 
 git commit -m "Update for $today"
 git push
